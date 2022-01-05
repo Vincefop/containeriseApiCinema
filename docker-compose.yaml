@@ -9,9 +9,9 @@ services:
     container_name: cinemas-api
     #Nom du network créé en dessous
     networks:
-      - net-cinema
+      - cinemanetwork
     ports:
-      - "4200:4200"
+      - 80:80
     #Nom de la base de données (du service database)
     depends_on:
       - database
@@ -26,11 +26,11 @@ services:
     volumes:
       - db-cinemas:/data/db
     networks:
-      - net-cinema
+      - cinemanetwork
 
 #Network a créer
 networks:
-  net-cinemas:
+  cinemanetwork:
 #Volume a créer
 volumes:
   db-cinemas:
