@@ -1,10 +1,10 @@
-FROM openjdk:11 as Build
+FROM maven:3.8.4-jdk-11 as BUILD
 # Dans cette phase là, je vais construire mon bundle JS
-WORKDIR /usr/src/myapp
-COPY . /usr/src/myapp
-RUN javac src/main/java/fr/semifir/apicinema/ApiCinemaApplication.java
+WORKDIR /app
+COPY . .
+RUN mvn package
 # Générer le bundle dans le dossier
-RUN -it --rm --name my-running-app my-java-app
+RUN
 
 # Deuxième phase qui va construire l'image finale de production
 FROM nginx:1.21.5-alpine
