@@ -1,0 +1,36 @@
+version: '3.8'
+#Service : regroupement de l'image et du contenaire
+services:
+  #Service cinema-api
+  cinema-api:
+    #Build l'image à partir du dockerfile
+    build: .
+    #Nom du container de l'api
+    container_name: cinemas-api
+    #Nom du network créé en dessous
+    networks:
+      - net-cinema
+    ports:
+      - "4200:4200"
+    #Nom de la base de données (du service database)
+    depends_on:
+      - database
+
+  #Service base de données
+  database:
+    image: mongo
+    container_name: cinemas-db
+    ports:
+      - "27017:27017"
+    #Volumes, pour persister la bdd hors du contenaire (/data/db propre à mongo)
+    volumes:
+      - db-cinemas:/data/db
+    networks:
+      - net-cinema
+
+#Network a créer
+networks:
+  net-cinemas:
+#Volume a créer
+volumes:
+  db-cinemas:
